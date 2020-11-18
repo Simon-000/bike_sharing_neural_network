@@ -94,7 +94,7 @@ class NeuralNetwork(object):
         output_error_term = error * final_outputs * (1 - final_outputs)
         
         # TODO: Calculate the hidden layer's contribution to the error
-        hidden_error = np.dot(output_error_term, self.weight_hidden_to_input.T)
+        hidden_error = np.dot(output_error_term, self.weight_hidden_to_output.T)
         
         hidden_error_term = hidden_error * hidden_outputs * (1 - hidden_outputs)
         
