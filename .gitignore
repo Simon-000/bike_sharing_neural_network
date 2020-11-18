@@ -138,3 +138,6 @@ dmypy.json
 cython_debug/
 
 .DS_Store
+
+# Udacity's Course Assistant
+.udacity-pa/
