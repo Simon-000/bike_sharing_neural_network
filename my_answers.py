@@ -48,8 +48,8 @@ class NeuralNetwork(object):
             
             final_outputs, hidden_outputs = self.forward_pass_train(X)  # Implement the forward pass function below
             # Implement the backproagation function below
-            delta_weights_i_h, delta_weights_h_o = self.backpropagation(final_outputs, hidden_outputs, X, y, 
-                                                                        delta_weights_i_h, delta_weights_h_o)
+            delta_weights_i_h, delta_weights_h_o = self.backpropagation(final_outputs, hidden_outputs, X, y, delta_weights_i_h, delta_weights_h_o)
+            
         self.update_weights(delta_weights_i_h, delta_weights_h_o, n_records)
 
 
@@ -99,9 +99,9 @@ class NeuralNetwork(object):
         hidden_error_term = hidden_error * hidden_outputs * (1 - hidden_outputs)
         
         # Weight step (input to hidden)
-        delta_weights_i_h += self.lr * hidden_error_term * X
+        delta_weights_i_h += hidden_error_term * X[0]
         # Weight step (hidden to output)
-        delta_weights_h_o += self.lr * output_error_term * hidden_outputs
+        delta_weights_h_o += output_error_term * hidden_outputs[0]
         return delta_weights_i_h, delta_weights_h_o
 
     def update_weights(self, delta_weights_i_h, delta_weights_h_o, n_records):
@@ -114,8 +114,8 @@ class NeuralNetwork(object):
             n_records: number of records
 
         '''
-        self.weights_hidden_to_output += delta_weights_h_o # update hidden-to-output weights with gradient descent step
-        self.weights_input_to_hidden += delta_weights_i_h # update input-to-hidden weights with gradient descent step
+        self.weights_hidden_to_output += self.lr * delta_weights_h_o # update hidden-to-output weights with gradient descent step
+        self.weights_input_to_hidden += self.lr * delta_weights_i_h # update input-to-hidden weights with gradient descent step
 
     def run(self, features):
         ''' Run a forward pass through the network with input features 
