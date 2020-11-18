@@ -94,14 +94,14 @@ class NeuralNetwork(object):
         output_error_term = error * final_outputs * (1 - final_outputs)
         
         # TODO: Calculate the hidden layer's contribution to the error
-        hidden_error = np.dot(output_error_term, self.weight_hidden_to_output.T)
+        hidden_error = np.dot(output_error_term, self.weights_hidden_to_output.T)
         
         hidden_error_term = hidden_error * hidden_outputs * (1 - hidden_outputs)
         
         # Weight step (input to hidden)
-        delta_weights_i_h += X * hidden_error_term * self.learning_rate 
+        delta_weights_i_h += self.learning_rate * hidden_error_term * X
         # Weight step (hidden to output)
-        delta_weights_h_o += hidden_outputs * output_error_term * self.learning_rate
+        delta_weights_h_o += self.learning_rate * output_error_term * hidden_outputs
         return delta_weights_i_h, delta_weights_h_o
 
     def update_weights(self, delta_weights_i_h, delta_weights_h_o, n_records):
