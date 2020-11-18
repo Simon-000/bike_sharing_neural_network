@@ -139,5 +139,7 @@ cython_debug/
 
 .DS_Store
 
-# Udacity's Course Assistant
+# Udacity's Course Assistant and files it generates
 .udacity-pa/
+*.zip
+*.json
