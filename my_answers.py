@@ -99,9 +99,9 @@ class NeuralNetwork(object):
         hidden_error_term = hidden_error * hidden_outputs * (1 - hidden_outputs)
         
         # Weight step (input to hidden)
-        delta_weights_i_h += self.learning_rate * hidden_error_term * X
+        delta_weights_i_h += self.lr * hidden_error_term * X
         # Weight step (hidden to output)
-        delta_weights_h_o += self.learning_rate * output_error_term * hidden_outputs
+        delta_weights_h_o += self.lr * output_error_term * hidden_outputs
         return delta_weights_i_h, delta_weights_h_o
 
     def update_weights(self, delta_weights_i_h, delta_weights_h_o, n_records):
